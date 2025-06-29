@@ -2,7 +2,7 @@
   "name": "PWA Install Demo",
   "short_name": "PWA Demo",
   "description": "A complete Progressive Web App with install prompt",
-  "start_url": "/pwa-check/",
+  "start_url": "/pwa-check/index2.html",
   "scope": "/pwa-check/",
   "display": "standalone",
   "background_color": "#4a6cf7",
