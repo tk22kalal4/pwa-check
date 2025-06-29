@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <base href="/pwa-check/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A complete PWA with install prompt">
     <meta name="theme-color" content="#4a6cf7">
     <title>Installable PWA</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="app.webmanifest">
     <style>
         * {
             margin: 0;
@@ -315,7 +314,7 @@
         // Register service worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js', { scope: '/pwa-check/' })
+                navigator.serviceWorker.register('sw.js', { scope: '/' })
                     .then(registration => {
                         console.log('Service Worker registered with scope:', registration.scope);
                     })
