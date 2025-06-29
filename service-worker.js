@@ -1,8 +1,9 @@
-const CACHE_NAME = 'pwa-install-demo-v1';
+const CACHE_NAME = 'pwa-install-demo-v2';
 const urlsToCache = [
   '/',
   '/index.html',
-  // Add other assets you want to cache here
+  '/icon-192.png',
+  '/icon-512.png'
 ];
 
 // Install service worker and cache assets
