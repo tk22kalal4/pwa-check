@@ -1,7 +1,7 @@
 {
   "name": "PWA Install Demo",
   "short_name": "PWA Demo",
-  "description": "A complete Progressive Web App with install prompt",
+  "description": "A complete Progressive Web App wit install prompt",
   "start_url": "index2.html",
   "scope": "/",
   "display": "standalone",
