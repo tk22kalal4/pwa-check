@@ -1,12 +1,11 @@
-const CACHE_NAME = 'pwa-install-demo-v4';
-const BASE_PATH = '/pwa-check/';
+const CACHE_NAME = 'pwa-install-demo-v3';
 const urlsToCache = [
-  BASE_PATH,
-  BASE_PATH + 'index.html',
-  BASE_PATH + 'index2.html',
-  BASE_PATH + 'app.webmanifest',
-  BASE_PATH + 'icon-192.png',
-  BASE_PATH + 'icon-512.png'
+  '/',
+  'index.html',
+  'index2.html',
+  'app.webmanifest',
+  'icon-192.png',
+  'icon-512.png'
 ];
 
 // Install service worker and cache assets
@@ -22,34 +21,29 @@ self.addEventListener('install', event => {
 
 // Serve cached content when offline
 self.addEventListener('fetch', event => {
-  const requestUrl = new URL(event.request.url);
-  
-  // Only handle requests from our own origin
-  if (requestUrl.origin !== location.origin) {
-    return;
-  }
-  
-  // For navigation requests, serve index2.html when the app is installed
+  // Handle navigation requests
   if (event.request.mode === 'navigate') {
+    // For installed app, serve index2.html as the home page
     event.respondWith(
-      caches.match(BASE_PATH + 'index2.html').then(response => {
+      caches.match('index2.html').then(response => {
         return response || fetch(event.request);
       })
     );
     return;
   }
   
-  // For other requests, try cache first, then network
+  // For all other requests, use cache-first strategy
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request).then(fetchResponse => {
-        // Cache the fetched response for future visits
-        return caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, fetchResponse.clone());
-          return fetchResponse;
-        });
-      });
-    })
+    caches.match(event.request)
+      .then(response => {
+        // Return cached response if found
+        if (response) {
+          return response;
+        }
+        
+        // Otherwise fetch from network
+        return fetch(event.request);
+      })
   );
 });
 
