@@ -8,14 +8,20 @@
   "theme_color": "#4a6cf7",
   "icons": [
     {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij48cmVjdCB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgZmlsbD0iIzRhNmNmNyIvPjxjaXJjbGUgY3g9IjEyOCIgY3k9IjEyOCIgcj0iNjQiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJNMTUzLjIsMTI4bDI1LjYtMjUuNmEyLjQsMi40LDAsMCwwLDAtMy40bC0xMC4yLTEwLjJhMi40LDIuNCwwLDAsMC0zLjQsMGwtMjUuNiwyNS42TDExMy44LDg4LjhhMi40LDIuNCwwLDAsMC0zLjQsMGwtMTAuMiwxMC4yYTIuNCwyLjQsMCwwLDAsMCwzLjRMMTI4LDEyOCw4OC44LDE2Ny4yYTIuNCwyLjQsMCwwLDAsMCwzLjRsMTAuMiwxMC4yYTIuNCwyLjQsMCwwLDAsMy40LDBsMjUuNi0yNS42LDI1LjYsMjUuNmEyLjQsMi40LDAsMCwwLDMuNCwwbDEwLjItMTAuMmEyLjQsMi40LDAsMCwwLDAtMy40WiIgZmlsbD0iIzRhNmNmNyIvPjwvc3ZnPg==",
+      "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/svg+xml"
+      "type": "image/png"
     },
     {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgZmlsbD0iIzRhNmNmNyIvPjxjaXJjbGUgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMTI4IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTMwNi40LDI1Nmw1MS4yLTUxLjJhNC44LDQuOCwwLDAsMCwwLTYuOGwtMjAuNC0yMC40YTQuOCw0LjgsMCwwLDAtNi44LDBsLTUxLjIsNTEuMkwyMjcuNiwxNzcuNmE0LjgsNC44LDAsMCwwLTYuOCwwbC0yMC40LDIwLjRhNC44LDQuOCwwLDAsMCwwLDYuOEwyNTYsMjU2LDE3Ny42LDMzNC40YTQuOCw0LjgsMCwwLDAsMCw2LjhsMjAuNCwyMC40YTQuOCw0LjgsMCwwLDAsNi44LDBsNTEuMi01MS4yLDUxLjIsNTEuMmE0LjgsNC44LDAsMCwwLDYuOCwwbDIwLjQtMjAuNGE0LjgsNC44LDAsMCwwLDAtNi44WiIgZmlsbD0iIzRhNmNmNyIvPjwvc3ZnPg==",
+      "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/png"
+    },
+    {
+      "src": "icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
