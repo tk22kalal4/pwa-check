@@ -2,7 +2,7 @@
   "name": "PWA Install Demo",
   "short_name": "PWA Demo",
   "description": "A complete Progressive Web App wit install prompt",
-  "start_url": "index2.html",
+  "start_url": "https://afrahtafreeh.site/app.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#4a6cf7",
