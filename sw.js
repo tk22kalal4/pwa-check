@@ -1,8 +1,8 @@
-const CACHE_NAME = 'pwa-install-demo-v3';
+const CACHE_NAME = 'pwa-install-demo-v4';
 const urlsToCache = [
   '/',
   'index.html',
-  'index2.html',
+  'https://afrahtafreeh.site/app.html',
   'app.webmanifest',
   'icon-192.png',
   'icon-512.png'
