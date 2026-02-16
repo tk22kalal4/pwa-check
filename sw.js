@@ -3,7 +3,6 @@ const urlsToCache = [
   '/',
   'index.html',
   'app.html',
-  'https://afrahtafreeh.site/app.html',
   'app.webmanifest',
   'icon-192.png',
   'icon-512.png'
@@ -22,18 +21,27 @@ self.addEventListener('install', event => {
 
 // Serve cached content when offline
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  
   // Handle navigation requests
   if (event.request.mode === 'navigate') {
-    // For installed app, serve index2.html as the home page
     event.respondWith(
-      caches.match('index2.html').then(response => {
-        return response || fetch(event.request);
-      })
+      fetch(event.request)
+        .catch(() => {
+          // If offline, serve the appropriate cached page
+          return caches.match('app.html').then(response => {
+            if (response) {
+              console.log('Serving app.html from cache (offline)');
+              return response;
+            }
+            return caches.match('index.html');
+          });
+        })
     );
     return;
   }
   
-  // For all other requests, use cache-first strategy
+  // For all other requests (assets, etc.), use cache-first strategy
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -42,8 +50,22 @@ self.addEventListener('fetch', event => {
           return response;
         }
         
-        // Otherwise fetch from network
-        return fetch(event.request);
+        // Otherwise fetch from network and cache
+        return fetch(event.request).then(response => {
+          // Don't cache if not a valid response
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+          
+          // Clone the response as it can only be used once
+          const responseToCache = response.clone();
+          
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+          
+          return response;
+        });
       })
   );
 });
@@ -57,10 +79,14 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
+            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
+    }).then(() => {
+      // Take control of all clients immediately
+      return self.clients.claim();
     })
   );
 });
