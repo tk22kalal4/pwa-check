@@ -3,7 +3,7 @@
   "short_name": "PWA Demo",
   "description": "A complete Progressive Web App with install prompt",
   "start_url": "./app.html",
-  "scope": "/",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#4a6cf7",
   "theme_color": "#4a6cf7",
