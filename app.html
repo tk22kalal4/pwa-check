@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Install App</title>
+    <title>My App</title>
     <style>
         * {
             margin: 0;
@@ -73,12 +73,28 @@
             background: #2575fc;
         }
         
-        .info {
+        .welcome-message {
             background: #f5f5f5;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
             margin: 20px 0;
-            font-size: 14px;
+            text-align: center;
+        }
+        
+        .welcome-message h2 {
+            color: #6a11cb;
+            margin-bottom: 10px;
+        }
+        
+        .offline-status {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .offline-status.offline {
+            color: #ff4444;
         }
         
         footer {
@@ -111,36 +127,101 @@
 <body>
     <div class="container">
         <header>
-            <h1>xy Install Application</h1>
-            <p>Secure and private installation</p>
+            <h1>Welcome to My App</h1>
+            <p>Your PWA is ready</p>
         </header>
         
         <div class="content">
-            <p>Click the button below to install the application on your device. The installation process is secure and your data will remain private.</p>
-            
-            <button class="button" id="installButton">Install Application</button>
-            
-            <div class="info">
-                <p><strong>Note:</strong> The actual application URL is protected and will not be shown during installation.</p>
+            <div class="welcome-message">
+                <h2>Hello!</h2>
+                <p>Welcome to the application. This is your start page where you can begin using the app.</p>
+                <div class="offline-status" id="offlineStatus"></div>
             </div>
+            
+            <button class="button" id="getStartedBtn">Get Started</button>
+            
+            <p style="text-align: center; color: #666; font-size: 14px;">
+                Version 1.0.0
+            </p>
         </div>
         
         <footer>
-            <p>Secure Installation &copy; 2023</p>
+            <p>&copy; 2024 My App. All rights reserved.</p>
         </footer>
     </div>
 
     <script>
+        // Service Worker Registration for PWA
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js', { scope: '/' })
                     .then(registration => {
-                        console.log('Service Worker registered with scope:', registration.scope);
+                        console.log('✅ Service Worker registered successfully with scope:', registration.scope);
+                        
+                        // Check for updates to the service worker
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            console.log('🔄 New service worker update found');
+                            
+                            newWorker.addEventListener('statechange', () => {
+                                console.log('📦 Service worker state:', newWorker.state);
+                            });
+                        });
                     })
                     .catch(error => {
-                        console.log('Service Worker registration failed:', error);
+                        console.log('❌ Service Worker registration failed:', error);
+                        
+                        // Display offline status message
+                        const offlineStatus = document.getElementById('offlineStatus');
+                        offlineStatus.textContent = '⚠️ Running in online mode only';
+                        offlineStatus.style.display = 'block';
                     });
             });
+            
+            // Check if app is running in standalone mode (installed)
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                console.log('📱 App is running in installed PWA mode');
+            } else {
+                console.log('🌐 App is running in browser mode');
+            }
+            
+            // Monitor online/offline status
+            function updateOnlineStatus() {
+                const offlineStatus = document.getElementById('offlineStatus');
+                if (!navigator.onLine) {
+                    offlineStatus.textContent = '📴 You are currently offline - using cached content';
+                    offlineStatus.classList.add('offline');
+                    offlineStatus.style.display = 'block';
+                } else {
+                    offlineStatus.textContent = '';
+                    offlineStatus.classList.remove('offline');
+                    offlineStatus.style.display = 'none';
+                }
+            }
+            
+            window.addEventListener('online', updateOnlineStatus);
+            window.addEventListener('offline', updateOnlineStatus);
+            updateOnlineStatus();
+            
+        } else {
+            console.log('❌ Service Workers are not supported in this browser');
+            const offlineStatus = document.getElementById('offlineStatus');
+            offlineStatus.textContent = '⚠️ Your browser does not support offline features';
+            offlineStatus.style.display = 'block';
+        }
+
+        // Get Started button functionality
+        document.getElementById('getStartedBtn').addEventListener('click', function() {
+            alert('Welcome to the app! This is your start page.');
+            // You can add navigation or other functionality here
+        });
+
+        // Optional: Add to homescreen detection for iOS
+        let isIos = navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad');
+        let isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+        
+        if (isIos && !isStandalone) {
+            console.log('🍎 iOS user - can add to home screen');
         }
     </script>
 </body>
